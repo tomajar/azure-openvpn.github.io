@@ -20,7 +20,7 @@
   <body>
       <div id="header">
         <nav>
-          <li class="fork"><a href="https://github.com/azure-openvpn">View On GitHub</a></li>
+          <li class="fork"><a href="https://github.com/azure-openvpn" target="_blank">View On GitHub</a></li>
         </nav>
       </div><!-- end header -->
 
@@ -31,40 +31,63 @@
           <h1>OpenVPN on Windows Azure</h1>
           <p></p>
           <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/azure-openvpn">azure-openvpn</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+          <span class="credits left">Project maintained by <a href="https://github.com/azure-openvpn" target="_blank">azure-openvpn</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham" target="_blank">mattgraham</a></span>
         </div>
 
-        <h3>Welcome to GitHub Pages.</h3>
+        <h3>First of all</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Thanks to <a href="https://github.com/" target="_blank">GitHub</a> for hosting this site and thanks to <a href="http://twitter.com/#!/michigangraham" target="_blank">mattgraham</a> for this beautiful theme.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h3>Why <a href="https://www.windowsazure.com/" target="_blank">Windows Azure</a> and not Amazon Elastic Compute Cloud(<a href="http://aws.amazon.com/ec2/" target="_blank">Amazon EC2</a>)?</h3>
+
+<p>While Windows Azure is often buggy/problematic and has a little bit less features I still prefer it over Amazon EC2 because the <a href="https://www.windowsazure.com/en-us/pricing/free-trial/" target="_blank">Free Trial</a>/<a href="http://aws.amazon.com/free/" target="_blank">Free Tier</a> of Windows Azure guarantees that you will not waste/pay a penny unless you manually diactivate the 0$/month limit or use the SQL Database created by the "Mobile Services" after the 90 days free trial expired(From <a href="https://www.windowsazure.com/en-us/pricing/details/" target="_blank">Windows Azure pricing details</a>: "The SQL Database utilized by Mobile Services, however, will be charged at Pay-As-You-Go rates at the end of the 90-day free trial.").</p>
+<p>On Windows Azure if you reach the monthly limit offered by the Free Trial than the service is just paused for this month while on Amazon EC2 if you reach the monthly limit offered by the Free Tier than "you simply pay standard, <a href="http://aws.amazon.com/ec2/pricing/" target="_blank">pay-as-you-go service rates</a>" and the service is still offered, it will not be stopped.</p>
+
+<br/>
+<h2>How to set-up your own OpenVPN on Windows Azure</h2>
+
+<h3>1. Prerequisites</h3>
+
+<p>1. You need a credit card which will be used to register for the service offered by Microsoft called Windows Azure. If you want to register for the 3 Month trial you don't really need to have any money on it, just the card is needed. If you don't use the "Mobile Services"(and we won't) than you will never be charged when you use the Free Trial unless you manually remove the 0$/month limit on your account.</p>
+
+<p>2. You need a mobile phone number, also used for the same registration(Microsoft Windows Azure).</p>
+
+<p>3. You need a Microsoft Live account. If you don't have one, than go <a href="https://signup.live.com/" target="_blank">Sign Up for one</a></p>
+
+<h3>2. Create Windows Azure account</h3>
+
+<p>1. Go to <a href="https://www.windowsazure.com/en-us/pricing/free-trial/" target="_blank">Windows Azure Free Trial page</a> and press on the "try it free" button.</p>
+<img src="images/TryItFreePage50.png"/>
+
+<p>2. Next you will be asked to log-in with your Microsoft Live account. Complete the registration.</p>
+
+<h3>3. Create a virtual machine and configure it</h3>
+
+<p>1. Make sure you are logged in into the Portal. If you are not, than <a href="https://manage.windowsazure.com/" target="_blank">Log In</a>.</p>
+
+<p>2. Press "New" -> "Compute" -> "Virtual Machine" -> "Quick Create". Fill out the spaces.</p>
+<img src=""/>
+
+<p>3. Open the ports for OpenVPN:</p>
+<pre><code>
+- HTTPS: TCP 493
+- Port for AdminUI: TCP 943
+- Port for OpenVPN Server: UDP 1194
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>4. Install OpenVPN Server on the Linux machine</h3>
 
-<h3>Designer Templates</h3>
+<p>1. Log in with the default azure user:</p>
+<pre>
+User: azureuser
+Password: [the one inserted when you created the virtual machine]
+</pre>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>2. Download the install packet by executing the following command:</p>
+<pre><code>wget -c http://swupdate.openvpn.org/as/openvpn-as-1.8.4-Ubuntu10.amd_64.deb</code></pre>
+or
+<pre><code>wget -c <code></pre>
 
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
