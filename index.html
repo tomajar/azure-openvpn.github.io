@@ -49,16 +49,18 @@
 
 <h3>1. Prerequisites</h3>
 
-<p>1. You need a credit card which will be used to register for the service offered by Microsoft called Windows Azure. If you want to register for the 3 Month trial you don't really need to have any money on it, just the card is needed. If you don't use the "Mobile Services"(and we won't) than you will never be charged when you use the Free Trial unless you manually remove the 0$/month limit on your account.</p>
+<p>1. <a href="https://www.google.com/" target="_blank">This is a link</a> - you can click it and it will open in a new tab. Also, the images are clickable. If you click on them you will see them in full size.</p>
 
-<p>2. You need a mobile phone number, also used for the same registration(Microsoft Windows Azure).</p>
+<p>2. You need a credit card which will be used to register for the service offered by Microsoft called Windows Azure. If you want to register for the 3 Month trial you don't really need to have any money on it, just the card is needed. If you don't use the "Mobile Services"(and we won't) than you will never be charged when you use the Free Trial unless you manually remove the 0$/month limit on your account.</p>
 
-<p>3. You need a Microsoft Live account. If you don't have one, than go <a href="https://signup.live.com/" target="_blank">Sign Up for one</a></p>
+<p>3. You need a mobile phone number, also used for the same registration(Microsoft Windows Azure).</p>
+
+<p>4. You need a Microsoft Live account. If you don't have one, than go <a href="https://signup.live.com/" target="_blank">Sign Up for one</a></p>
 
 <h3>2. Create Windows Azure account</h3>
 
 <p>1. Go to <a href="https://www.windowsazure.com/en-us/pricing/free-trial/" target="_blank">Windows Azure Free Trial page</a> and press on the "try it free" button.</p>
-<img src="images/TryItFreePage50.png"/>
+<a href="images/TryItFreePage50.png" target="_blank"><img src="images/TryItFreePage50.png"/></a>
 
 <p>2. Next you will be asked to log-in with your Microsoft Live account. Complete the registration.</p>
 
@@ -67,27 +69,75 @@
 <p>1. Make sure you are logged in into the Portal. If you are not, than <a href="https://manage.windowsazure.com/" target="_blank">Log In</a>.</p>
 
 <p>2. Press "New" -> "Compute" -> "Virtual Machine" -> "Quick Create". Fill out the spaces.</p>
-<img src=""/>
+<p>Press on the images to see them in their original size in a new tab</p>
+<a href="images/PressNew.png" target="_blank"><img src="images/PressNew.png" /></a>
+<a href="images/QuickCreateNew.png" target="_blank"><img src="images/QuickCreateNew.png" /></a>
 
 <p>3. Open the ports for OpenVPN:</p>
-<pre><code>
+<a href="images/VirtualMachineInfo.png" target="_blank"><img src="images/VirtualMachineInfo.png" /></a>
+<a href="images/InfoPage.png" target="_blank"><img src="images/InfoPage.png" /></a>
+<a href="images/OpenPortsModified.png" target="_blank"><img src="images/OpenPortsModified.png" /></a>
+<pre>
 - HTTPS: TCP 493
 - Port for AdminUI: TCP 943
 - Port for OpenVPN Server: UDP 1194
-</code></pre>
+</pre>
 
-<h3>4. Install OpenVPN Server on the Linux machine</h3>
+<h3>4. Install OpenVPN Server on the <b>Linux</b> machine</h3>
 
-<p>1. Log in with the default azure user:</p>
+<p>1. If you are on Windows <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe" target="_blank">download PuTTY</a> to be able to connect to the server through SSH. If you are on <b>Linux</b> you don't need any additional application.</p>
+
+<p>2. Connect to the server. [server address] = DNS Name in the Windows Azure Portal. ex: [the name you inserted on creation of the virtual machine].cloudapp.net. A more concrete example: openvpn.cloudapp.net</p>
 <pre>
-User: azureuser
+On Windows:
+<a href="images/PuTTY.png" target="_blank"><img src="images/PuTTY.png" /></a>
+</pre>
+<pre>
+On <b>Linux</b> write into the console/terminal:
+<code>ssh [your server address]</code>
+</pre>
+
+<p>3. Log in with the default azure user:</p>
+<pre>
+User: [default user, if that's the first virtual machine it is "azureuser"]
 Password: [the one inserted when you created the virtual machine]
 </pre>
 
-<p>2. Download the install packet by executing the following command:</p>
+<p>4. Download the install package by executing the following command:</p>
 <pre><code>wget -c http://swupdate.openvpn.org/as/openvpn-as-1.8.4-Ubuntu10.amd_64.deb</code></pre>
-or
-<pre><code>wget -c <code></pre>
+
+<p>5. Install the server:</p>
+<pre><code>sudo dpkg -i openvpn-as-1.8.4-Ubuntu10.amd_64.deb</code></pre>
+
+<p>6. Change the default openvpn user password(You will not see characters appearing, don't worry, that's for security reasons. The console is still taking input from you):</p>
+<pre><code>sudo passwd openvpn</code></pre>
+
+<p>7. The free license of OpenVPN Server allows having 2 Clients connected. If you want to add one more you will have to create the user on the <b>Linux</b> machine:</p>
+<pre><code>sudo adduser</code></pre>
+
+<h3>5. Configure your OpenVPN server</h3>
+
+<p>1. Open a Web Browser and navigate to:</p>
+<pre>https://[your server's dns name]:943/admin</pre>
+
+<p>2. Log in with the openvpn user in the Web UI:</p>
+<pre>
+User: openvpn
+Password: [the one your wrote when you executed "sudo passwd openvpn"]
+</pre>
+
+<p>3. Change server's IP to your Public IP that I said previously that you will need it later</p>
+<a href="images/ChangeIP.png" target="_blank"><img src="images/ChangeIP.png" /></a>
+<p>Scroll down and press Save. Then scroll up and confirm server changes.</p>
+
+<p>4. If you added a user previously with "sudo adduser" and want the user to able to log in to your OpenVPN server than go to "User Permissions" from the pannel that's on left of the page and add that user(make sure the username is absolutely the same you wrote in the <b>Linux</b> machine when you created it).</p>
+
+<h3>6. Connect to the server with a client</h3>
+
+<p>The server should be up and running at this moment. You need a client now to connect. Go <a href="http://openvpn.net/index.php?option=com_content&id=357" target="_blank">download an OpenVPN Client</a>. Install the client. Launch the client.</p>
+<p>In the "Server Address" space write your server's dns name (ex: vpn.cloudapp.net) and press Connect. Say yes to the certificate question and then you will be asked to insert the user name and password. Insert the same user and password you used for the Admin web UI(user: openvpn, password: ...). If you added the user to "User Permissions" before than you can use that user too.</p>
+
+<h2>Enjoy!</h2>
 
   </body>
 </html>
