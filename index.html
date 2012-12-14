@@ -20,7 +20,7 @@
   <body>
       <div id="header">
         <nav>
-          <li class="fork"><a href="https://github.com/azure-openvpn">View On GitHub</a></li>
+          <li class="fork"><a href="https://github.com/azure-openvpn" target="_blank">View On GitHub</a></li>
         </nav>
       </div><!-- end header -->
 
@@ -31,40 +31,113 @@
           <h1>OpenVPN on Windows Azure</h1>
           <p></p>
           <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/azure-openvpn">azure-openvpn</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+          <span class="credits left">Project maintained by <a href="https://github.com/azure-openvpn" target="_blank">azure-openvpn</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham" target="_blank">mattgraham</a></span>
         </div>
 
-        <h3>Welcome to GitHub Pages.</h3>
+        <h3>First of all</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Thanks to <a href="https://github.com/" target="_blank">GitHub</a> for hosting this site and thanks to <a href="http://twitter.com/#!/michigangraham" target="_blank">mattgraham</a> for this beautiful theme.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h3>Why <a href="https://www.windowsazure.com/" target="_blank">Windows Azure</a> and not Amazon Elastic Compute Cloud(<a href="http://aws.amazon.com/ec2/" target="_blank">Amazon EC2</a>)?</h3>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>While Windows Azure is often buggy/problematic and has a little bit less features I still prefer it over Amazon EC2 because the <a href="https://www.windowsazure.com/en-us/pricing/free-trial/" target="_blank">Free Trial</a>/<a href="http://aws.amazon.com/free/" target="_blank">Free Tier</a> of Windows Azure guarantees that you will not waste/pay a penny unless you manually diactivate the 0$/month limit or use the SQL Database created by the "Mobile Services" after the 90 days free trial expired(From <a href="https://www.windowsazure.com/en-us/pricing/details/" target="_blank">Windows Azure pricing details</a>: "The SQL Database utilized by Mobile Services, however, will be charged at Pay-As-You-Go rates at the end of the 90-day free trial.").</p>
+<p>On Windows Azure if you reach the monthly limit offered by the Free Trial than the service is just paused for this month while on Amazon EC2 if you reach the monthly limit offered by the Free Tier than "you simply pay standard, <a href="http://aws.amazon.com/ec2/pricing/" target="_blank">pay-as-you-go service rates</a>" and the service is still offered, it will not be stopped.</p>
 
-<h3>Designer Templates</h3>
+<br/>
+<h2>How to set-up your own OpenVPN on Windows Azure</h2>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h3>1. Prerequisites</h3>
 
-<h3>Rather Drive Stick?</h3>
+<p>1. <a href="https://www.google.com/" target="_blank">This is a link</a> - you can click it and it will open in a new tab. Also, the images are clickable. If you click on them you will see them in full size.</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>2. You need a credit card which will be used to register for the service offered by Microsoft called Windows Azure. If you want to register for the 3 Month trial you don't really need to have any money on it, just the card is needed. If you don't use the "Mobile Services"(and we won't) than you will never be charged when you use the Free Trial unless you manually remove the 0$/month limit on your account.</p>
 
-<h3>Authors and Contributors</h3>
+<p>3. You need a mobile phone number, also used for the same registration(Microsoft Windows Azure).</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>4. You need a Microsoft Live account. If you don't have one, than go <a href="https://signup.live.com/" target="_blank">Sign Up for one</a></p>
 
-<h3>Support or Contact</h3>
+<h3>2. Create Windows Azure account</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
+<p>1. Go to <a href="https://www.windowsazure.com/en-us/pricing/free-trial/" target="_blank">Windows Azure Free Trial page</a> and press on the "try it free" button.</p>
+<a href="images/TryItFreePage50.png" target="_blank"><img src="images/TryItFreePage50.png"/></a>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+<p>2. Next you will be asked to log-in with your Microsoft Live account. Complete the registration.</p>
+
+<h3>3. Create a virtual machine and configure it</h3>
+
+<p>1. Make sure you are logged in into the Portal. If you are not, than <a href="https://manage.windowsazure.com/" target="_blank">Log In</a>.</p>
+
+<p>2. Press "New" -> "Compute" -> "Virtual Machine" -> "Quick Create". Fill out the spaces.</p>
+<p>Press on the images to see them in their original size in a new tab</p>
+<a href="images/PressNew.png" target="_blank"><img src="images/PressNew.png" /></a>
+<a href="images/QuickCreateNew.png" target="_blank"><img src="images/QuickCreateNew.png" /></a>
+
+<p>3. Open the ports for OpenVPN:</p>
+<a href="images/VirtualMachineInfo.png" target="_blank"><img src="images/VirtualMachineInfo.png" /></a>
+<a href="images/InfoPage.png" target="_blank"><img src="images/InfoPage.png" /></a>
+<a href="images/OpenPortsModified.png" target="_blank"><img src="images/OpenPortsModified.png" /></a>
+<pre>
+- HTTPS: TCP 493
+- Port for AdminUI: TCP 943
+- Port for OpenVPN Server: UDP 1194
+</pre>
+
+<h3>4. Install OpenVPN Server on the <b>Linux</b> machine</h3>
+
+<p>1. If you are on Windows <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe" target="_blank">download PuTTY</a> to be able to connect to the server through SSH. If you are on <b>Linux</b> you don't need any additional application.</p>
+
+<p>2. Connect to the server. [server address] = DNS Name in the Windows Azure Portal. ex: [the name you inserted on creation of the virtual machine].cloudapp.net. A more concrete example: openvpn.cloudapp.net</p>
+<pre>
+On Windows:
+<a href="images/PuTTY.png" target="_blank"><img src="images/PuTTY.png" /></a>
+</pre>
+<pre>
+On <b>Linux</b> write into the console/terminal:
+<code>ssh [your server address]</code>
+</pre>
+
+<p>3. Log in with the default azure user:</p>
+<pre>
+User: [default user, if that's the first virtual machine it is "azureuser"]
+Password: [the one inserted when you created the virtual machine]
+</pre>
+
+<p>4. Download the install package by executing the following command:</p>
+<pre><code>wget -c http://swupdate.openvpn.org/as/openvpn-as-1.8.4-Ubuntu10.amd_64.deb</code></pre>
+
+<p>5. Install the server:</p>
+<pre><code>sudo dpkg -i openvpn-as-1.8.4-Ubuntu10.amd_64.deb</code></pre>
+
+<p>6. Change the default openvpn user password(You will not see characters appearing, don't worry, that's for security reasons. The console is still taking input from you):</p>
+<pre><code>sudo passwd openvpn</code></pre>
+
+<p>7. The free license of OpenVPN Server allows having 2 Clients connected. If you want to add one more you will have to create the user on the <b>Linux</b> machine:</p>
+<pre><code>sudo adduser</code></pre>
+
+<h3>5. Configure your OpenVPN server</h3>
+
+<p>1. Open a Web Browser and navigate to:</p>
+<pre>https://[your server's dns name]:943/admin</pre>
+
+<p>2. Log in with the openvpn user in the Web UI:</p>
+<pre>
+User: openvpn
+Password: [the one your wrote when you executed "sudo passwd openvpn"]
+</pre>
+
+<p>3. Change server's IP to your Public IP that I said previously that you will need it later</p>
+<a href="images/ChangeIP.png" target="_blank"><img src="images/ChangeIP.png" /></a>
+<p>Scroll down and press Save. Then scroll up and confirm server changes.</p>
+
+<p>4. If you added a user previously with "sudo adduser" and want the user to able to log in to your OpenVPN server than go to "User Permissions" from the pannel that's on left of the page and add that user(make sure the username is absolutely the same you wrote in the <b>Linux</b> machine when you created it).</p>
+
+<h3>6. Connect to the server with a client</h3>
+
+<p>The server should be up and running at this moment. You need a client now to connect. Go <a href="http://openvpn.net/index.php?option=com_content&id=357" target="_blank">download an OpenVPN Client</a>. Install the client. Launch the client.</p>
+<p>In the "Server Address" space write your server's dns name (ex: vpn.cloudapp.net) and press Connect. Say yes to the certificate question and then you will be asked to insert the user name and password. Insert the same user and password you used for the Admin web UI(user: openvpn, password: ...). If you added the user to "User Permissions" before than you can use that user too.</p>
+
+<h2>Enjoy!</h2>
+
   </body>
 </html>
