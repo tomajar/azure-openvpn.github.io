@@ -107,18 +107,24 @@ Password: [the one inserted when you created the virtual machine]
 <pre><code>wget -c http://swupdate.openvpn.org/as/openvpn-as-1.8.5-Ubuntu12.amd_64.deb</code></pre>
 
 <p>5. Install the server:</p>
-<pre><code>sudo dpkg -i openvpn-as-1.8.5-Ubuntu12.amd_64.deb</code></pre>
+<pre>
+<code>sudo dpkg -i openvpn-as-1.8.5-Ubuntu12.amd_64.deb</code>
+</pre>
 
 <p>6. Change the default openvpn user password(You will not see characters appearing, don't worry, that's for security reasons. The console is still taking input from you):</p>
 <pre><code>sudo passwd openvpn</code></pre>
 
-<p>7. The free license of OpenVPN Server allows having 2 Clients connected. If you want to add one more you will have to create the user on the <b>Linux</b> machine:</p>
+<p>7(<b>Optional</b>). The free license of OpenVPN Server allows having 2 Clients connected. If you want to add one more you will have to create the user on the <b>Linux</b> machine:</p>
 <pre><code>sudo adduser</code></pre>
 
 <h3>5. Configure your OpenVPN server</h3>
 
 <p>1. Open a Web Browser and navigate to:</p>
 <pre>https://[server address]:943/admin</pre>
+
+The browser will worn you that the connection is untrusted because the server doesn't have an SSL Certificate.<br/>
+On Firefox select "I Understand the Risks" -> Add Exception...<br/>
+On Chrome select "Proceed anyway"<br/><br/>
 
 <p>2. Log in with the openvpn user in the Web UI:</p>
 <pre>
@@ -130,7 +136,7 @@ Password: [the one you wrote when you executed "sudo passwd openvpn"]
 <a href="images/ChangeIP.png" target="_blank"><img src="images/ChangeIP.png" /></a>
 <p>Scroll down and press Save. Then scroll up and confirm server changes.</p>
 
-<p>4. If you added a user previously with "sudo adduser" and want the user to able to log in to your OpenVPN server than go to "User Permissions" from the pannel that's on left of the page and add that user(make sure the username is absolutely the same you wrote in the <b>Linux</b> machine when you created it).</p>
+<p>4(<b>Optional</b>). If you added a user previously with "sudo adduser" and want the user to able to log in to your OpenVPN server than go to "User Permissions" from the pannel that's on left of the page and add that user(make sure the username is absolutely the same you wrote in the <b>Linux</b> machine when you created it).</p>
 
 <h3>6. Connect to the server with a client</h3>
 
